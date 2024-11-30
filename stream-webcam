@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# adapt input_format, video_size and input, see v4l2-ctl --list-formats-ext
+# adapt alsa device, see arecord -l
+# h264_v4l2m2m is pi hardware encoder ; GOP of 60 is good for 30fps
+# rtmp://<host>:<port>/<app name>/<stream name>
+
+ffmpeg \
+    -thread_queue_size 1024 -f v4l2 -input_format mjpeg -video_size 1280x720 -i /dev/video0 \
+    -thread_queue_size 1024 -f alsa -i hw:0 \
+    -c:v h264_v4l2m2m -pix_fmt yuv420p -g 60 \
+    -c:a aac -b:a 256k -ar 44100 -ac 1 \
+    -f flv rtmp://HOST/APP_NAME/STREAM_NAME
