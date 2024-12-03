@@ -1,25 +1,17 @@
-<!doctype html>
-<html>
-    <head>
-        <title>Cameras</title>
-        <style>
-            video {
-                width: 640px;
-                height: 360px;
-            }
-        </style>
-    </head>
-    <body>
-        <div>
-            <video id="videoPlayer" controls></video>
-        </div>
-        <script src="http://cdn.dashjs.org/latest/dash.all.min.js"></script>
-        <script>
-            (function(){
-                var url = "APP_NAME/STREAM_NAME.mpd";
-                var player = dashjs.MediaPlayer().create();
-                player.initialize(document.querySelector("#videoPlayer"), url, true);
-            })();
-        </script>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cameras</title>
+    <link href="//vjs.zencdn.net/8.20.0/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/8.20.0/video.min.js"></script>
+</head>
+<body>
+<video id="salon" class="video-js vjs-default-skin" height="360" width="640" controls preload="none" autoplay="true">
+    <source src="hls/salon.m3u8" type="application/x-mpegURL" />
+</video>
+<script>
+    var player = videojs('#salon');
+</script>
+</body>
 </html>
